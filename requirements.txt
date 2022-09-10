@@ -1,0 +1,10 @@
+boto3
+black
+pylint
+click
+pytest
+pytest-cov
+fastapi
+requests
+openai
+ipython
