@@ -19,8 +19,8 @@ def cli():
 @click.option("--rows", default = 3, prompt="Number of rows to return", help="Number of rows to return")
 
 def cli_query(age, gender, bmi, rows):
-    """Execute a SQL query on azureml diabetes open dataset"""
-    query = f"SELECT * FROM default.diabetes WHERE AGE > {age} AND SEX = {gender} AND BMI > {bmi} ORDER BY AGE  LIMIT {rows}"
+    """Execute a query on azureml diabetes open dataset automatically based on your input values"""
+    query = f"SELECT * FROM diabetes WHERE AGE > {age} AND SEX = {gender} AND BMI > {bmi} ORDER BY AGE  LIMIT {rows}"
     querydb(query)
 
 
