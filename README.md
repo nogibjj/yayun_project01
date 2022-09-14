@@ -1,4 +1,4 @@
-# Assimilating databricks and query a table from a diabetes datasets
+# Assimilate databricks to query a table from a diabetes datasets in databricks
 Hi, welcome to my github repo. Here, I demonstrate how to connect to databricks and how to query a table related to diabetes in my databricks database easily.
 
 It is worth mentioning that these code also allow users to directly query the databricks database with SQL queries.
