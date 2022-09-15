@@ -16,4 +16,4 @@ def querydb(query="SELECT * FROM default.diabetes LIMIT 2"):
         for row in result:
             print(row)
 
-    return result  
+    return result
