@@ -12,8 +12,10 @@ def querydb(query="SELECT * FROM default.diabetes LIMIT 2"):
         with connection.cursor() as cursor:
             cursor.execute(query)
             result = cursor.fetchall()
-
-        for row in result:
-            print(row)
+        if len(result) == 0:
+            print("This is a empty table")
+        else:
+            for row in result:
+                print(row)
 
     return result
