@@ -1,13 +1,15 @@
 from datetime import date
 from requests_html import HTMLSession
+import csv
 
-url_dict = {
-            'ssense':'https://www.ssense.com/en-us/women/product/saint-laurent/taupe-small-solferino-bag/9118391',
-            'net-a-porter':'https://www.net-a-porter.com/en-us/shop/product/saint-laurent/bags/cross-body/solferino-small-leather-shoulder-bag/6630340696680927',
-            'farfetch':'https://www.farfetch.com/shopping/women/saint-laurent-small-solferino-crossbody-bag-item-16360071.aspx?fsb=1&size=17&storeid=13824',
-            'mytheresa': 'https://www.mytheresa.com/en-us/saint-laurent-solferino-small-leather-crossbody-bag-1840157.html',
-            'official_ysl':'https://www.ysl.com/en-us/satchel-and-bucket-bags/solferino-small-satchel-in-box-saint-laurent-leather-6343060SX0W2357.html'
-            }
+def create_url(path):
+    dic = {}
+    with open(path) as f:
+        csv_reader = csv.reader(f, delimiter=',')
+        next(csv_reader, None) 
+        for line in csv_reader:
+            dic[line[0]] = line[1]
+    return dic
 
 user = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36"
 def get_price_ssense(url,s = HTMLSession()):
@@ -39,6 +41,10 @@ def get_price_ysl(url, s = HTMLSession()):
     price = r.html.find('p.c-price__value--current', first = True).text
     price = int(price[2:].replace(',',""))
     return price
+
+
+path = 'website_url.csv'
+url_dict = create_url(path)
 
 def get_today_price():
     today = date.today().strftime("%Y-%m-%d")
