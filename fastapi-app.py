@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 import uvicorn
-from dblib.get_prices import get_prices
+from get_prices import get_prices
 
 app = FastAPI()
 
