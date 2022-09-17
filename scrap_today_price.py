@@ -1,6 +1,5 @@
-from datetime import date, datetime
+from datetime import date
 from requests_html import HTMLSession
-import requests
 
 url_dict = {
             'ssense':'https://www.ssense.com/en-us/women/product/saint-laurent/taupe-small-solferino-bag/9118391',
@@ -10,38 +9,32 @@ url_dict = {
             'official_ysl':'https://www.ysl.com/en-us/satchel-and-bucket-bags/solferino-small-satchel-in-box-saint-laurent-leather-6343060SX0W2357.html'
             }
 
-
 user = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36"
-def get_price_ssense(url):
-    s = HTMLSession()
+def get_price_ssense(url,s = HTMLSession()):
     r = s.get(url, headers = {'User-Agent': user})
     price = r.html.find('h3#pdpRegularPriceText',  first = True).text
     price = int(price[1:-4])
     return price
     
-def get_price_netA(url):
-    s = HTMLSession()
+def get_price_netA(url,s = HTMLSession()):
     r = s.get(url, headers = {'User-Agent': user})
     price = r.html.find('div.PriceWithSchema9.PriceWithSchema9--details.ProductDetails85__price span.PriceWithSchema9__value.PriceWithSchema9__value--details span', first = True).text
     price = int(price[1:].replace(",",""))
     return price  
 
-def get_price_farfetch(url):
-    s = HTMLSession()
+def get_price_farfetch(url, s = HTMLSession()):
     r = s.get(url, headers = {'User-Agent': user})
     price = r.html.find('p.ltr-194u1uv-Heading.e54eo9p0', first = True).text
     price = int(price[1:].replace(",",""))
     return price
 
-def get_price_mytheresa(url):
-    s = HTMLSession()
+def get_price_mytheresa(url, s = HTMLSession()):
     r = s.get(url, headers = {'User-Agent': user})
     price = r.html.find('span.price', first = True).text
     price = int(price[2:].replace(",",""))
     return price
 
-def get_price_ysl(url):
-    s = HTMLSession()
+def get_price_ysl(url, s = HTMLSession()):
     r = s.get(url, headers = {'User-Agent': user})
     price = r.html.find('p.c-price__value--current', first = True).text
     price = int(price[2:].replace(',',""))
@@ -57,6 +50,9 @@ def get_today_price():
     lis.append(get_price_mytheresa(url_dict['mytheresa']))
     today_min = min(lis[1:])
     lis.append(today_min)
+    brand_list = ['official_ysl', 'ssense', 'net-a-porter', 'farfetch', 'mytheresa']
+    min_brands = [brand_list[i] for i in range(len(brand_list)) if lis[i+1] == today_min]
+    lis.append(", ".join(min_brands))
     values = f'{tuple(lis)}'
     return values
 

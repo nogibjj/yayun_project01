@@ -2,7 +2,7 @@ from databricks import sql
 import os
 
 
-def querydb(query):
+def querydb(query = 'SELECT * FROM default.diabetes LIMIT 3'):
     with sql.connect(
         server_hostname=os.getenv("DATABRICKS_SERVER_HOSTNAME"),
         http_path=os.getenv("DATABRICKS_HTTP_PATH"),
@@ -15,8 +15,6 @@ def querydb(query):
         if len(result) == 0:
             print("This is a empty table")
         else:
-            for row in result:
-                print(row)
+            pass
 
     return result
-querydb()

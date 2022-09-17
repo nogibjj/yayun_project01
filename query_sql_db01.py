@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 
-from cmd import PROMPT
-from email.policy import default
 import click
 from dblib.querydb import querydb
 from dblib.insertdb import insertdb
-from scrap_today_price import *
+from scrap_today_price import get_today_price
+
 
 # build a click group
 @click.group()
@@ -17,7 +16,7 @@ def cli():
 @cli.command()
 @click.option(
     "--query",
-    default="SELECT * FROM default.diabetes LIMIT 3",
+    prompt = "enter your query",
     help="SQL query to execute",
 )
 def cli_query(query):
@@ -75,10 +74,21 @@ def cli_insert_data(table, data, rows):
 def cli_get_prices():
     """Get lowest prices of wanted items and insert today's prices to databricks database"""
     price = get_today_price()
-    insertdb('wanted_items', price, 3)
-    q_low_30 = 'SELECT * FROM wanted_item WHERE lowest = (SELECT MIN(lowest) FROM (SELECT * FROM wanted_item ORDER BY DESC date LIMIT 30)) LIMIT 1'
-    q_low_60 = 'SELECT * FROM wanted_item WHERE lowest = (SELECT MIN(lowest) FROM (SELECT * FROM wanted_item ORDER BY DESC date LIMIT 60)) LIMIT 1'
-    q_low_all = 'SELECT * FROM wanted_item WHERE lowest = (SELECT MIN(lowest) FROM (SELECT * FROM wanted_item ORDER BY DESC date )) LIMIT 1'
+    insertdb('wanted_item', price, 0)
+    print("Today's lowest prices is: ")
+    p = querydb('SELECT * FROM wanted_item ORDER BY date DESC LIMIT 1')[0]
+    print(f'{p.LOWEST} USD at shopping websites "{p.BRANDS}."\n')
+    q_low_30 = 'SELECT date, LOWEST, BRANDS FROM (SELECT * FROM wanted_item ORDER BY date DESC LIMIT 30) WHERE LOWEST = (SELECT MIN(LOWEST) FROM (SELECT * FROM wanted_item ORDER BY date DESC LIMIT 30) LIMIT 1)'
+    p1 = querydb(q_low_30)[0]
+    q_low_60 = 'SELECT date, LOWEST, BRANDS FROM (SELECT * FROM wanted_item ORDER BY date DESC LIMIT 60) WHERE LOWEST = (SELECT MIN(LOWEST) FROM (SELECT * FROM wanted_item ORDER BY date DESC LIMIT 60) LIMIT 1)'
+    p2 = querydb(q_low_60)[0]
+    q_low_all = 'SELECT date, LOWEST, BRANDS FROM (SELECT * FROM wanted_item ORDER BY date DESC) WHERE LOWEST = (SELECT MIN(LOWEST) FROM (SELECT * FROM wanted_item ORDER BY date DESC) LIMIT 1)'
+    p3 = querydb(q_low_all)[0]
+    print(f'The lowest price in past 30 days: \n{p1.LOWEST} USD, at shopping websites "{p1.BRANDS}" on {p1.date}\n')
+    print(f'The lowest price in past 60 days: \n{p2.LOWEST} USD, at shopping websites "{p2.BRANDS}" on {p2.date}\n')
+    q_count = 'SELECT COUNT(*) FROM wanted_item'
+    print(f'The lowest price in past {querydb(q_count)[0].count(1)} days: \n{p3.LOWEST} USD, at shopping websites "{p3.BRANDS}" on {p1.date}\n')
+
 
 # run the CLI
 if __name__ == "__main__":
