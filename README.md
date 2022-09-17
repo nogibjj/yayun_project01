@@ -30,7 +30,7 @@ Type ```./query_sql_db.py --help``` to see the helper documentation.
 Here, I chose YSL's solferino "small cross body bag" for example. 
 
 * First, store website url for your wanted-item. as a csv file in your repository. (ex. website_url.csv)
-* Second, create a table in databricks to store your data. 
+* Second, create a table in databricks to store your data.   
 Run ```./query_sql_db.py cli-create```.Type the table name, and then specify column name (date, website, lowest price, website for lowest price today) and type as the following in the command line. If you enter correctly, it should return "This is a empty table"
 
 Here is the example:
@@ -47,6 +47,7 @@ Here is the example: (This is just an example, not the real price!)
 ```
 $ ./query_sql_db.py cli-get-prices
 Enter table name: wanted_item
+
 Today's (2022-09-17) lowest price is: 
 2650 USD at shopping websites "net-a-porter."
 
@@ -75,6 +76,7 @@ $ ./query_sql_db.py cli-insert-data
 Enter table name: wanted_item
 Enter data: (col1, col2), (col1, col2): ('2022-03-22', 2030, 2050, 2010, 2007, 2090, 2030, 'test-insert')
 Max Number of rows to return [3]: 1
+
 Row(date=datetime.date(2022, 3, 3), YSL=2000, SSENSE=2030, NETA=2050, FARFETCH=2010, MYTHERESA=2007, LOWEST=2030, BRANDS='test')
 ```
 
