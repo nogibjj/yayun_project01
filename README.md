@@ -3,31 +3,39 @@
 # Keep tracks of the lowest prices for wanted items everyday with Databricks SQL Connector for Python 
 ![alt text](https://github.com/nogibjj/yayun_project01/blob/main/Blank%20board.png)
 
-# Key objectives
+## Key objectives
 This projects aims to keep track of the lowest prices of my wanted item over several shopping websites.
 
 
 
-# Demo Video
+## Demo Video
 
-# Methodology
+## Methodology
 In this project, for example, I chose YSL's solferino "small cross body bag" as my item and I used websites, "Saint Laurent", "SSENSE", "NET-A-PORTER", "MyTHERESA", "FARFETCH". I scrapped the item's prices from these websites and stored into Databricks table. 
 
-# Files description
+## Files description
 
-## web-scarpping
-* websites_url.csv: store urls of the wanted itmes on several interested websites.
-* URLs of shopping websites for the wanted item (a ysl bag)
+### web-scarpping
+* ```websites_url.csv```: store urls of the wanted itmes on several interested websites.
+* ```scrap_today_prcie```: python code for scrapping website in ```websites_url.csv``` to get the price of the wanted item.
 
-## helper
+### query Databricks table(./dblib)
+* ```querydb```: python code for function for connection to Databricks and executing SQL query.
+* ```insertdb```: python code for fucntion for conncetion to Databricks and ineserting data in to a table without needs to type full SQL query
+
+# CLI
+* ```query_sql_db.py```: python code for command line interface.
+
+### Web-apps
 
 
 
 
-# User instruction
+
+## User instruction
 Type ```./query_sql_db.py --help``` to see the helper documentation.
 
-## Using Command Line Interface
+### Using Command Line Interface
 
 #### Record everyday price and get report of the lowest prices
 Here, I chose YSL's solferino "small cross body bag" for example. 
@@ -84,7 +92,7 @@ Max Number of rows to return [3]: 1
 Row(date=datetime.date(2022, 3, 3), YSL=2000, SSENSE=2030, NETA=2050, FARFETCH=2010, MYTHERESA=2007, LOWEST=2030, BRANDS='test')
 ```
 
-## Web-App
+### Web-App
 
 Code needed to run the web app using FastAPI are in fastapi. To run the web app, type in ```python fastapi-app.py``` in your terminal and open up the web app on a new tab on your browser. This should take you to a website showing "Hi there, please enter '/get_prices/table_name' after current url to find the lowest prices of it! (it may take a few seconds to load the page)"
 
