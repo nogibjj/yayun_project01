@@ -42,7 +42,7 @@ This is a empty table.
 ```
 * Third, keep every day prices and get every day summary. 
 Run ```./query_sql_db.py cli-enter-prices```. Enter table name. If enter correctly, it should return the lowest prices of today and over past 30, 60 days and all records.   
-*Remeber, when you type this ```./query_sql_db.py cli-get-prices```, today's prices will also be recorded into Databricks table. If you have already recorded and just want to see today's price summary, use ```./query_sql_db.py cli-get-prices``` instead.
+*Remeber, when you type this ```./query_sql_db.py cli-get-prices```, today's prices will also be recorded into Databricks table. If you have already recorded and just want to see today's price summary, use ```./query_sql_db.py cli-get-prices``` instead.*
 
 Here is the example: (This is just an example, not the real price!)
 ```
