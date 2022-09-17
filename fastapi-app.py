@@ -1,3 +1,4 @@
+import string
 from fastapi import FastAPI
 import uvicorn
 from get_prices import get_prices
@@ -8,19 +9,19 @@ app = FastAPI()
 
 @app.get("/")
 async def root():
-    return  "Hi there, please enter '/my_ysl_bag' after current url to find the lowest prices of it! (it may take a few seconds to load the page)"
+    return  "Hi there, please enter '/get_prices/table_name' after current url to find the lowest prices of it! (it may take a few seconds to load the page)"
 
-@app.get("/my_ysl_bag")
-async def wanted_item():
+@app.get("/get_prices/{table}")
+async def wanted_item(table: str):
     """Get the lowest price for the wanted_item"""
-    result = get_prices()
+    result = get_prices(table)
     return result
 
-@app.get("/query")
-async def query():
+@app.get("/query/{query}")
+async def query(query: str):
     """Execute a SQL query"""
 
-    result = querydb()
+    result = querydb(query)
     return {"result": result}
 
 

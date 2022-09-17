@@ -56,7 +56,7 @@ def cli_create(table_name, columns):
 @click.option(
     "--data",
     required=True,
-    prompt="Enter data",
+    prompt="Enter data: (col1, col2), (col1, col2)",
     help="Data to insert(enter a data list:(col1, col2), (col1, col2)",
 )
 @click.option(
@@ -73,23 +73,41 @@ def cli_insert_data(table, data, rows):
 
 # build click commands to get lowest prices of wanted items and insert today's prices to databricks database 
 @cli.command()
-def cli_get_prices():
+@click.option("--table", prompt = "Enter table name")
+def cli_enter_prices(table):
     """Get lowest prices of wanted items and insert today's prices to databricks database"""
     price = get_today_price()
-    insertdb('wanted_item', price, 0)
-    print("Today's lowest prices is: ")
-    p = querydb('SELECT * FROM wanted_item ORDER BY date DESC LIMIT 1')[0]
+    insertdb(table, price, 0)
+    p = querydb(f'SELECT * FROM {table} ORDER BY date DESC LIMIT 1')[0]
+    print(f"Today's ({p.date}) lowest price is: ")
     print(f'{p.LOWEST} USD at shopping websites "{p.BRANDS}."\n')
-    q_low_30 = 'SELECT date, LOWEST, BRANDS FROM (SELECT * FROM wanted_item ORDER BY date DESC LIMIT 30) WHERE LOWEST = (SELECT MIN(LOWEST) FROM (SELECT * FROM wanted_item ORDER BY date DESC LIMIT 30) LIMIT 1)'
+    q_low_30 = f'SELECT date, LOWEST, BRANDS FROM (SELECT * FROM {table} ORDER BY date DESC LIMIT 30) WHERE LOWEST = (SELECT MIN(LOWEST) FROM (SELECT * FROM {table} ORDER BY date DESC LIMIT 30) LIMIT 1)'
     p1 = querydb(q_low_30)[0]
-    q_low_60 = 'SELECT date, LOWEST, BRANDS FROM (SELECT * FROM wanted_item ORDER BY date DESC LIMIT 60) WHERE LOWEST = (SELECT MIN(LOWEST) FROM (SELECT * FROM wanted_item ORDER BY date DESC LIMIT 60) LIMIT 1)'
+    q_low_60 = f'SELECT date, LOWEST, BRANDS FROM (SELECT * FROM {table} ORDER BY date DESC LIMIT 60) WHERE LOWEST = (SELECT MIN(LOWEST) FROM (SELECT * FROM {table} ORDER BY date DESC LIMIT 60) LIMIT 1)'
     p2 = querydb(q_low_60)[0]
-    q_low_all = 'SELECT date, LOWEST, BRANDS FROM (SELECT * FROM wanted_item ORDER BY date DESC) WHERE LOWEST = (SELECT MIN(LOWEST) FROM (SELECT * FROM wanted_item ORDER BY date DESC) LIMIT 1)'
+    q_low_all = f'SELECT date, LOWEST, BRANDS FROM (SELECT * FROM {table} ORDER BY date DESC) WHERE LOWEST = (SELECT MIN(LOWEST) FROM (SELECT * FROM {table} ORDER BY date DESC) LIMIT 1)'
     p3 = querydb(q_low_all)[0]
     print(f'The lowest price in past 30 days: \n{p1.LOWEST} USD, at shopping websites "{p1.BRANDS}" on {p1.date}\n')
     print(f'The lowest price in past 60 days: \n{p2.LOWEST} USD, at shopping websites "{p2.BRANDS}" on {p2.date}\n')
-    q_count = 'SELECT COUNT(*) FROM wanted_item'
-    print(f'The lowest price in past {querydb(q_count)[0].count(1)} days: \n{p3.LOWEST} USD, at shopping websites "{p3.BRANDS}" on {p1.date}\n')
+    print(f'The lowest price in the record: \n{p3.LOWEST} USD, at shopping websites "{p3.BRANDS}" on {p1.date}\n')
+
+
+@cli.command()
+@click.option("--table", prompt = "Enter table name")
+def cli_get_prices(table):
+    """Get lowest prices of wanted items"""
+    p = querydb(f'SELECT * FROM {table} ORDER BY date DESC LIMIT 1')[0]
+    print(f"Today's ({p.date}) lowest price is: ")
+    print(f'{p.LOWEST} USD at shopping websites "{p.BRANDS}."\n')
+    q_low_30 = f'SELECT date, LOWEST, BRANDS FROM (SELECT * FROM {table} ORDER BY date DESC LIMIT 30) WHERE LOWEST = (SELECT MIN(LOWEST) FROM (SELECT * FROM {table} ORDER BY date DESC LIMIT 30) LIMIT 1)'
+    p1 = querydb(q_low_30)[0]
+    q_low_60 = f'SELECT date, LOWEST, BRANDS FROM (SELECT * FROM {table} ORDER BY date DESC LIMIT 60) WHERE LOWEST = (SELECT MIN(LOWEST) FROM (SELECT * FROM {table} ORDER BY date DESC LIMIT 60) LIMIT 1)'
+    p2 = querydb(q_low_60)[0]
+    q_low_all = f'SELECT date, LOWEST, BRANDS FROM (SELECT * FROM {table} ORDER BY date DESC) WHERE LOWEST = (SELECT MIN(LOWEST) FROM (SELECT * FROM {table} ORDER BY date DESC) LIMIT 1)'
+    p3 = querydb(q_low_all)[0]
+    print(f'The lowest price in past 30 days: \n{p1.LOWEST} USD, at shopping websites "{p1.BRANDS}" on {p1.date}\n')
+    print(f'The lowest price in past 60 days: \n{p2.LOWEST} USD, at shopping websites "{p2.BRANDS}" on {p2.date}\n')
+    print(f'The lowest price in the record: \n{p3.LOWEST} USD, at shopping websites "{p3.BRANDS}" on {p1.date}\n')
 
 
 # run the CLI
