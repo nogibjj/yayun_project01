@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 import uvicorn
 from get_prices import get_prices
+from dblib.querydb import querydb
 
 app = FastAPI()
 
@@ -14,6 +15,13 @@ async def wanted_item():
     """Get the lowest price for the wanted_item"""
     result = get_prices()
     return result
+
+@app.get("/query")
+async def query():
+    """Execute a SQL query"""
+
+    result = querydb()
+    return {"result": result}
 
 
 

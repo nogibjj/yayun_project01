@@ -21,7 +21,9 @@ def cli():
 )
 def cli_query(query):
     """Execute a SQL query"""
-    querydb(query)
+    result = querydb(query)
+    for row in result:
+        print(row)
 
 
 # build click commands for creating a new empty table
