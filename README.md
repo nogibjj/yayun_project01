@@ -87,8 +87,8 @@ Row(date=datetime.date(2022, 3, 3), YSL=2000, SSENSE=2030, NETA=2050, FARFETCH=2
 Code needed to run the web app using FastAPI are in fastapi. To run the web app, type in ```python fastapi-app.py``` in your terminal and open up the web app on a new tab on your browser. This should take you to a website showing "Hi there, please enter '/get_prices/table_name' after current url to find the lowest prices of it! (it may take a few seconds to load the page)"
 
 You can then type ```get_prices/{tablenName for the item}``` after current url to get today's price summary for the item you want to know.
-For example:
-```https://yayunyun-nogibjj-yayun-project01-4567g4wjr56h55j9-8080.githubpreview.dev/get_prices/wanted_item```
+For example:  
+Enter ```https://yayunyun-nogibjj-yayun-project01-4567g4wjr56h55j9-8080.githubpreview.dev/get_prices/wanted_item```. 
 will get a result like:
 ```
 "Collection the price of the YSL bag from 5 websites...., 
