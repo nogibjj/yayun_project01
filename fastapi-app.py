@@ -1,4 +1,3 @@
-import string
 from fastapi import FastAPI
 import uvicorn
 from get_prices import get_prices
@@ -17,11 +16,11 @@ async def wanted_item(table: str):
     result = get_prices(table)
     return result
 
-@app.get("/query/{query}")
-async def query(query: str):
+@app.get("/query/{queryx}")
+async def query(queryx: str):
     """Execute a SQL query"""
 
-    result = querydb(query)
+    result = querydb(queryx)
     return {"result": result}
 
 

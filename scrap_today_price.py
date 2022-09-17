@@ -2,9 +2,9 @@ from datetime import date
 from requests_html import HTMLSession
 import csv
 
-def create_url(path):
+def create_url():
     dic = {}
-    with open(path) as f:
+    with open('website_url.csv',  encoding="utf-8") as f:
         csv_reader = csv.reader(f, delimiter=',')
         next(csv_reader, None) 
         for line in csv_reader:
@@ -43,11 +43,9 @@ def get_price_ysl(url, s = HTMLSession()):
     return price
 
 
-path = 'website_url.csv'
-url_dict = create_url(path)
-
 def get_today_price():
     today = date.today().strftime("%Y-%m-%d")
+    url_dict = create_url()
     lis = [today]  
     lis.append(get_price_ysl(url_dict['official_ysl']))
     lis.append(get_price_ssense(url_dict['ssense']))
@@ -61,6 +59,7 @@ def get_today_price():
     lis.append(", ".join(min_brands))
     values = f'{tuple(lis)}'
     return values
+
 
 
 
