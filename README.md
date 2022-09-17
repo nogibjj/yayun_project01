@@ -34,6 +34,11 @@ In this project, I chose YSL's solferino "small cross body bag" as my item and I
 
 ## Files description
 
+### scaffolding
+* ```Makefille```: Compiling and configuration for the codespaces.
+* ```requirements.txt```: pacakge used in this project.
+* ```./devcontainer```: includes container files.
+
 ### web-scarpping
 * ```websites_url.csv```: store urls of the wanted itmes on several interested websites.
 * ```scrap_today_prcie```: python code for scrapping website in ```websites_url.csv``` to get the price of the wanted item.
