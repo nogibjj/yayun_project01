@@ -2,7 +2,7 @@ from databricks import sql
 import os
 
 # insert data(less than thousands of rows)
-def insertdb(table_name, insert_data, rows):
+def insertdb(table_name, insert_data, rows = 3):
     with sql.connect(
         server_hostname=os.getenv("DATABRICKS_SERVER_HOSTNAME"),
         http_path=os.getenv("DATABRICKS_HTTP_PATH"),
