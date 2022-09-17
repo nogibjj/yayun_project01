@@ -1,6 +1,6 @@
 [![Python application test with Github Actions using devcontainers](https://github.com/nogibjj/yayun_project01/actions/workflows/main.yml/badge.svg)](https://github.com/nogibjj/yayun_project01/actions/workflows/main.yml)
 
-# Keep tracks of the lowest prices for wanted items everyday with Databricks SQL Connector for Python 
+# Keep tracks of the lowest prices for wanted items with Databricks SQL Connector for Python 
 ![alt text](https://github.com/nogibjj/yayun_project01/blob/main/Blank%20board.png)
 
 ## Key objectives
