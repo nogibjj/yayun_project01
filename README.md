@@ -63,7 +63,7 @@ The lowest price in the record:
 2045 USD, at shopping websites "net-a-porter" on 2021-09-13
 
 ```
-
+---------------------------------------------
 #### Query, Create, Insert Databricks table
 Directly query any table in Databricks with SQL query.
 Type:```./query_sql_db.py cli-query``` Then enter your query like ``` SELECT * FROM wanted_item LIMIT 3```.
