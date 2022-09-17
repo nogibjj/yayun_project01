@@ -23,11 +23,12 @@ In this project, for example, I chose YSL's solferino "small cross body bag" as 
 * ```querydb```: python code for function for connection to Databricks and executing SQL query.
 * ```insertdb```: python code for fucntion for conncetion to Databricks and ineserting data in to a table without needs to type full SQL query
 
-# CLI
+### CLI
 * ```query_sql_db.py```: python code for command line interface.
 
 ### Web-apps
-
+* ```fastapi-app.py```: python code for a webframe work using fastAPI.
+* ```get_prices```: python code for function used to get prices in ```fastapi-app.py```.
 
 
 
