@@ -8,16 +8,16 @@ This projects aims to keep track of the lowest prices of wanted items over sever
 Ideally, this project's goal is to provide a item's lowest prices summary as the follwoing:
 ```
 Today's (2022-09-17) lowest price is: 
-2650 USD at shopping websites "net-a-porter."
+2650 USD at shopping website "net-a-porter."
 
 The lowest price in past 30 days: 
-2650 USD, at shopping websites "net-a-porter" on 2022-09-17
+2650 USD, at shopping website "net-a-porter" on 2022-09-17
 
 The lowest price in past 60 days: 
-2550 USD, at shopping websites "mytheresa" on 2022-07-20
+2550 USD, at shopping website "mytheresa" on 2022-07-20
 
 The lowest price in the record: 
-2045 USD, at shopping websites "net-a-porter" on 2021-09-13
+2045 USD, at shopping website "net-a-porter" on 2021-09-13
 ```
 Therefore, users can have a idea whether today is a good time to buy the item.
 
@@ -25,11 +25,10 @@ Therefore, users can have a idea whether today is a good time to buy the item.
 
 ## Methodology
 In this project, I chose YSL's solferino "small cross body bag" as my item and I used websites, "Saint Laurent", "SSENSE", "NET-A-PORTER", "MyTHERESA", "FARFETCH" as a example.
-1. Everyday prices are collected by scrapping from these websites.
+1. Everyday prices are collected by web-scrapping from these websites.
 2. Create a table for this item and record its price everydat in Databricks with Databricks SQL Connector for Python.
 3. Build CLI easily query tables in Databricks and get the item's lowest's price summary.
 4. The Web App was created using FastAPI and uvicorn
-
 
 
 
