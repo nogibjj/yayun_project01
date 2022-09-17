@@ -4,18 +4,20 @@
 ![alt text](https://github.com/nogibjj/yayun_project01/blob/main/Blank%20board.png)
 
 # Key objectives
-This projects aims to 
-that people who have do not understand SQL syntax can also use.
+This projects aims to keep track of the lowest prices of my wanted item over several shopping websites.
+
 
 
 # Demo Video
 
 # Methodology
+In this project, for example, I chose YSL's solferino "small cross body bag" as my item and I used websites, "Saint Laurent", "SSENSE", "NET-A-PORTER", "MyTHERESA", "FARFETCH". I scrapped the item's prices from these websites and stored into Databricks table. 
 
 # Files description
 
 ## web-scarpping
-URLs of shopping websites for the wanted item (a ysl bag)
+* websites_url.csv: store urls of the wanted itmes on several interested websites.
+* URLs of shopping websites for the wanted item (a ysl bag)
 
 ## helper
 
